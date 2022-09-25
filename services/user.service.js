@@ -14,7 +14,7 @@ const createUser = async (user) => {
 
 const updateRoleUser = async (user) => {
     try {
-        const user = await Users.updateOne(
+        await Users.updateOne(
             {username: user.username},
             {
                 $set:({role: user.role})

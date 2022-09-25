@@ -8,4 +8,7 @@ app.get('/health', (req, res) => res.status(200).send('chat system api!'));
 // router
 const authRouter = require('./routers/auth.router');
 app.use('/api/auth', authRouter);
+
+const userRouter = require('./routers/user.router');
+app.use('/api/users', userRouter);
 module.exports = app;
