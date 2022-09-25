@@ -48,7 +48,6 @@ const getAllUsers = async () => {
 const getUserByUsername = async (username) => {
     try {
         const user = await Users.findOne({username: username}, {
-            password: 0,
             _id: 0,
             __v: 0
         });

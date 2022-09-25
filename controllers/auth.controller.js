@@ -13,6 +13,23 @@ const registerUser = async (req, res) => {
     }
 }
 
+const loginUser = async (req, res) => {
+    try {
+        const userLogin = req.body;
+        const user = await userService.getUserByUsername(userLogin.username);
+        const result = await authentication.checkPassword(userLogin.password, user.password);
+        if (result) {
+            return res.status(200).json({token: authentication.generateToken(user)})
+        }else {
+            return res.status(400).json({message: "information login incorrect!"});
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal server error!"});
+    }
+}
+
 module.exports = {
-    registerUser
+    registerUser,
+    loginUser
 }
