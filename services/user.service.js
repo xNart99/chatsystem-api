@@ -58,9 +58,24 @@ const getUserByUsername = async (username) => {
     }
 }
 
+const findUserByUsernameOrEmail = async(username, email) => {
+    try {
+        const user = await Users.findOne({$or: [
+            {email: email},
+            {username: username}
+        ]});
+
+        return user;
+    } catch(error) {
+        console.log(error);
+        return null;
+    }
+}
+
 module.exports = {
     createUser,
     updateRoleUser,
     getAllUsers,
-    getUserByUsername
+    getUserByUsername,
+    findUserByUsernameOrEmail
 }
