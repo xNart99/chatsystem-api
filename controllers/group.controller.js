@@ -15,6 +15,18 @@ const createGroup = async (req, res) => {
     }
 }
 
+const getGroupById = async (req, res) =>{
+    try {
+        const {id} = req.params;
+        const group = await groupService.getGroupById(id);
+        return res.status(200).json(group);
+    }catch(error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal server error!"});
+    }
+}
+
 module.exports = {
-    createGroup
+    createGroup,
+    getGroupById
 }

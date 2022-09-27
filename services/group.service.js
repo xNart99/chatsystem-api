@@ -7,7 +7,10 @@ const createGroup = async (group) => {
 }
 
 const getGroupById = async (groupId) => {
-    const group = await Groups.findOne({id: groupId});
+    const group = await Groups.findOne({id: groupId}, {
+        _id: 0,
+        __v: 0
+    });
     return group;
 }
 
