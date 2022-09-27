@@ -11,4 +11,7 @@ app.use('/api/auth', authRouter);
 
 const userRouter = require('./routers/user.router');
 app.use('/api/users', userRouter);
+
+const groupRouter = require('./routers/group.router');
+app.use('/api/groups', groupRouter);
 module.exports = app;
