@@ -87,11 +87,23 @@ const getAllGroup = async (req, res) => {
     }
 }
 
+const deleteGroup = async (req, res) => {
+    try {
+        const {groupId} = req.params;
+        await groupService.deleteGroup(groupId);
+        return res.status(200).json({message: "successful!"});
+    }catch(error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal server error!"});
+    }
+}
+
 module.exports = {
     createGroup,
     getGroupById,
     updateGroup,
     addMemberToGroup,
     removeMemberToGroup,
-    getAllGroup
+    getAllGroup,
+    deleteGroup
 }
