@@ -4,7 +4,7 @@ const groupSchema = new mongoose.Schema({
     id: {
         type: String
     },
-    menbers: {
+    members: {
         type: [String],
         default: ["admin"]
     },

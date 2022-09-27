@@ -27,11 +27,11 @@ const updateGroupById = async (group) => {
 const addMemberToGroup = async (groupId, memberUsername) => {
     const group = await Groups.findOne({id: groupId});
 
-    let arrayMember = group.menbers;
+    let arrayMember = group.members;
 
     arrayMember.push(memberUsername);
 
-    group.menbers = arrayMember;
+    group.members = arrayMember;
 
     updateGroupById(group);
 
@@ -42,9 +42,9 @@ const addMemberToGroup = async (groupId, memberUsername) => {
 const removeMemberToGroup = async (groupId, memberUsername) => {
     const group = await Groups.findOne({id: groupId});
 
-    let arrayMember = group.menbers;
+    let arrayMember = group.members;
 
-    group.menbers = arrayMember.filter(item => item !== memberUsername);
+    group.members = arrayMember.filter(item => item !== memberUsername);
 
     updateGroupById(group);
 
@@ -70,6 +70,12 @@ const getGroupByName = async (groupName) => {
 
     return group;
 }
+
+const checkUsernameInGroup = async (groupId,username) => {
+    const group = await Groups.findOne({id: groupId});
+    const arrayMember = group.members;
+    return arrayMember.includes(username);
+}
 module.exports = {
     createGroup,
     getAllGroup,
@@ -78,5 +84,6 @@ module.exports = {
     removeMemberToGroup,
     addMemberToGroup,
     deleteGroup,
-    getGroupByName
+    getGroupByName,
+    checkUsernameInGroup
 }
