@@ -61,7 +61,7 @@ const removeMemberToGroup = async (req, res) => {
     try {
         const {groupId, memberUsername} = req.body;
         const user = await userService.getUserByUsername(memberUsername);
-        
+
         if (!user) {
             return res.status(400).json({message: "user not exists!"});
         }
@@ -77,12 +77,21 @@ const removeMemberToGroup = async (req, res) => {
     }
 }
 
-
+const getAllGroup = async (req, res) => {
+    try {
+        const groups = await groupService.getAllGroup();
+        return res.status(200).json(groups);
+    }catch (error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal server error!"});
+    }
+}
 
 module.exports = {
     createGroup,
     getGroupById,
     updateGroup,
     addMemberToGroup,
-    removeMemberToGroup
+    removeMemberToGroup,
+    getAllGroup
 }
