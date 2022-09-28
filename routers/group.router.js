@@ -12,4 +12,5 @@ router.get('/', groupController.getAllGroup);
 router.delete('/:groupId', groupController.deleteGroup);
 //channel
 router.post('/:groupId/channels', groupController.createChannel);
+router.post('/:groupId/channels/:channelId/add-member', groupController.addUserToChannel);
 module.exports = router;
