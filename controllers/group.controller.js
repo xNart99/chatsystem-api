@@ -98,6 +98,22 @@ const deleteGroup = async (req, res) => {
     }
 }
 
+const createChannel = async (req, res) => {
+    try {
+        const channel = req.body;
+        const {groupId} = req.params;
+        const channelCheck = await groupService.getChannelByName(groupId, channel.name);
+        if (channelCheck) {
+            return res.status(400).json({message: "name of channel exists!"})
+        }
+        await groupService.createChannel(groupId,channel);
+        return res.status(200).json({message: "successful!"});
+    }catch (error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal server error!"});
+    }
+}
+
 module.exports = {
     createGroup,
     getGroupById,
@@ -105,5 +121,6 @@ module.exports = {
     addMemberToGroup,
     removeMemberToGroup,
     getAllGroup,
-    deleteGroup
+    deleteGroup,
+    createChannel
 }
