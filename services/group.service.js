@@ -9,7 +9,8 @@ const createGroup = async (group) => {
 const getGroupById = async (groupId) => {
     const group = await Groups.findOne({id: groupId}, {
         _id: 0,
-        __v: 0
+        __v: 0,
+        "channels._id": 0
     });
     return group;
 }
