@@ -112,7 +112,10 @@ const removeUserFormChannel= async (groupId, channelId, username) => {
     const group = await getGroupById(groupId);
     for(let channel of group.channels) {
         if(channel.id === channelId) {
-            const newUsers = channel.accessingUsers.filter(item !== username);
+            if (!channel.accessingUsers.includes(username)){
+                return false;
+            }
+            const newUsers = channel.accessingUsers.filter(item => item !== username);
             channel.accessingUsers = newUsers;
         }
     }
@@ -122,6 +125,7 @@ const removeUserFormChannel= async (groupId, channelId, username) => {
             $set: (group)
         }
     );
+    return true;
 }
 
 const getChannelById = async (groupId, channelId) => {
