@@ -164,6 +164,17 @@ const getChannelById = async (req, res) => {
         return res.status(500).json({message: "Internal server error!"});
     }
 }
+
+const deleteChannel = async (req, res) => {
+    try {
+        const {groupId,channelId} = req.params;
+        await groupService.deleteChannel(groupId, channelId);
+        return res.status(200).json({message: "successful!"});
+    }catch (error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal server error!"});
+    }
+}
 module.exports = {
     createGroup,
     getGroupById,
@@ -175,5 +186,6 @@ module.exports = {
     createChannel,
     addUserToChannel,
     removeUserFromChannel,
-    getChannelById
+    getChannelById,
+    deleteChannel
 }
