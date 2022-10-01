@@ -8,6 +8,8 @@ mongoose.connect(config.DB.URL, config.DB.CONFIG)
     .catch(err => console.log(err));
 
     
-app.listen(5000,() =>{
+const server = app.listen(5000,() =>{
     console.log(`server running!`);
-})
+});
+
+module.exports = server;

@@ -1,5 +1,6 @@
 const {Groups} = require('../models');
 const {v4: uuidv4} = require('uuid');
+const socketIO = require('../utils/socket');
 const createGroup = async (group) => {
     group.id = uuidv4();
     const newGroup = await new Groups(group).save();
@@ -157,6 +158,23 @@ const deleteChannel = async (groupId, channelId) => {
         }
     )
 }
+
+const createMessageToChannel = async (groupId, channelId, message) => {
+    message.id = uuidv4();
+    const group = await getGroupById(groupId);
+    for(let channel of group.channels) {
+        if (channel.id === channelId) {
+            socketIO.sendMessage(message);
+            channel.messages.push(message);
+        }
+    }
+    await Groups.updateOne(
+        {id: groupId},
+        {
+            $set: (group)
+        }
+    )
+}
 module.exports = {
     createGroup,
     getAllGroup,
@@ -173,5 +191,6 @@ module.exports = {
     removeUserFormChannel,
     getChannelById,
     deleteChannel,
-    getChannelByName
+    getChannelByName,
+    createMessageToChannel
 }

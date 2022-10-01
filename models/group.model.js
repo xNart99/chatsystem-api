@@ -15,13 +15,7 @@ const groupSchema = new mongoose.Schema({
                 accessingUsers: [String],
                 createdAt: Number,
                 updatedAt: Number,
-                messages: [{
-                    id: String,
-                    content: String,
-                    createdAt: Number,
-                    form: String,
-                    type: String
-                }],
+                messages: [],
                 name: String,
                 read: []
             }
