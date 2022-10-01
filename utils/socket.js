@@ -1,11 +1,12 @@
 const io = require('socket.io')(4000);
-let socketio;
-io.on('connection', (socket) => {
-    socketio = socket;
- });
 
-const sendMessage = (data) => {
-    socketio.emit('send-message', data);
+io.on('connection', (socket) => {
+    socket.on('join', function(room) {
+        socket.join(room);
+ })});
+
+const sendMessage = (channelId, data) => {
+    io.to(channelId).emit('send-message', data);
 }
 
 module.exports = {

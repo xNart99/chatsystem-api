@@ -164,7 +164,7 @@ const createMessageToChannel = async (groupId, channelId, message) => {
     const group = await getGroupById(groupId);
     for(let channel of group.channels) {
         if (channel.id === channelId) {
-            socketIO.sendMessage(message);
+            socketIO.sendMessage(channelId, message);
             channel.messages.push(message);
         }
     }
