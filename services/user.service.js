@@ -4,6 +4,7 @@ const authentication = require('../utils/authentication');
 const createUser = async (user) => {
     try {
         user.password = await authentication.hashPassword(user.password);
+        user.avatar = 'uploads\250262.jpg';
         await new Users(user).save();
         return true;
     }catch (error) {
@@ -26,6 +27,15 @@ const updateRoleUser = async (user) => {
         console.log(error);
         return false;
     }
+}
+
+const updateUser = async (user) => {
+    await Users.updateOne(
+        {username: user.username},
+        {
+            $set:(user)
+        }
+    );
 }
 
 
@@ -77,5 +87,6 @@ module.exports = {
     updateRoleUser,
     getAllUsers,
     getUserByUsername,
-    findUserByUsernameOrEmail
+    findUserByUsernameOrEmail,
+    updateUser
 }
