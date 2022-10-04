@@ -53,9 +53,33 @@ const getUser = async(req, res) => {
         return res.status(500).json({message: "Internal server error!"});
     }
 }
+
+const getUserByUsername = async(req, res) => {
+    try {
+        const {username} = req.query;
+        const user = await userService.getUserByUsername(username);
+        return res.status(200).json(user);
+    }catch(error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal server error!"});
+    }
+}
+
+const removeUser = async (req, res) => {
+    try {
+        const {username} = req.query;
+        await userService.removeUserByUsername(username);
+        return res.status(200).json({message: "successful!"});
+    }catch(error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal server error!"});
+    }
+}
 module.exports = {
     updateRoleUser,
     getAllUser,
     updateUser,
-    getUser
+    getUser,
+    getUserByUsername,
+    removeUser
 }

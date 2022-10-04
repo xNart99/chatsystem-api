@@ -10,4 +10,6 @@ router.put('/role',authMiddleware.isAuthenticated, authMiddleware.checkSupperAdm
 router.get('/', authMiddleware.isAuthenticated,authMiddleware.checkSupperAdminAndGroupAdmin,userController.getAllUser);
 router.put('/profile', authMiddleware.isAuthenticated,upload, userController.updateUser);
 router.get('/profile', authMiddleware.isAuthenticated, userController.getUser);
+router.get('/search', userController.getUserByUsername);
+router.delete('/', authMiddleware.isAuthenticated, authMiddleware.checkSupperAdmin, userController.removeUser);
 module.exports = router;

@@ -82,11 +82,16 @@ const findUserByUsernameOrEmail = async(username, email) => {
     }
 }
 
+const removeUserByUsername = async (username) => {
+    await Users.findOne({username: username}).remove();
+}
+
 module.exports = {
     createUser,
     updateRoleUser,
     getAllUsers,
     getUserByUsername,
     findUserByUsernameOrEmail,
-    updateUser
+    updateUser,
+    removeUserByUsername
 }
