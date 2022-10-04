@@ -23,7 +23,7 @@ const loginUser = async (req, res) => {
         const user = await userService.getUserByUsername(userLogin.username);
         const result = await authentication.checkPassword(userLogin.password, user.password);
         if (result) {
-            return res.status(200).json({token: authentication.generateToken(user)})
+            return res.status(200).json({token: authentication.generateToken(user), role: user.role});
         }else {
             return res.status(400).json({message: "information login incorrect!"});
         }

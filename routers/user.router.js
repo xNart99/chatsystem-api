@@ -9,5 +9,5 @@ const authMiddleware = require('../middlewares/authorization');
 router.put('/role',authMiddleware.isAuthenticated, authMiddleware.checkSupperAdminAndGroupAdmin,userController.updateRoleUser);
 router.get('/', authMiddleware.isAuthenticated,authMiddleware.checkSupperAdminAndGroupAdmin,userController.getAllUser);
 router.put('/profile', authMiddleware.isAuthenticated,upload, userController.updateUser);
-
+router.get('/profile', authMiddleware.isAuthenticated, userController.getUser);
 module.exports = router;

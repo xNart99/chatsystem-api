@@ -42,8 +42,20 @@ const updateUser = async (req, res) => {
         return res.status(500).json({message: "Internal server error!"});
     }
 }
+
+const getUser = async(req, res) => {
+    try {
+        const userReq = req.user;
+        const user = await userService.getUserByUsername(userReq.username);
+        return res.status(200).json(user);
+    }catch(error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal server error!"});
+    }
+}
 module.exports = {
     updateRoleUser,
     getAllUser,
-    updateUser
+    updateUser,
+    getUser
 }

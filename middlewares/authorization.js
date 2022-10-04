@@ -1,4 +1,5 @@
-
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 const isAuthenticated = async(req, res, next) => {
     try {
         const access_token = req.headers["authorization"].split(" ")[1];
@@ -9,6 +10,7 @@ const isAuthenticated = async(req, res, next) => {
         }
         return res.status(401).json({ message: 'user not exist' });
     } catch (err) {
+        console.log(err);
         return res.status(401).json(err);
     }
 }

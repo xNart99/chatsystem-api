@@ -4,7 +4,6 @@ io.on('connection', (socket) => {
     socket.on('join', function(room) {
         socket.join(room);
     });
-    socket.on('')
 });
 
 const sendMessage = (channelId, data) => {
