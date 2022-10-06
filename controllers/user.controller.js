@@ -32,7 +32,7 @@ const updateUser = async (req, res) => {
         }
 
         if (req.file) {
-            user.avatar = req.file.path;
+            user.profileImage = 'http://localhost:5000/'+ req.file.path;
         }
         await userService.updateUser(user);
 

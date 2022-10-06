@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String
     },
-    avatar: {
+    profileImage: {
         type: String
     }
 });
