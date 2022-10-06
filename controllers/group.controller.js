@@ -192,7 +192,7 @@ const sendMessageFile = async (req, res) => {
     try {
         const {groupId,channelId} = req.params;
         let message = req.body;
-        message.content = req.file.path;
+        message.content = 'http://localhost:5000/' + req.file.path;
         message.createdAt = Number(message.createdAt);
         await groupService.createMessageToChannel(groupId, channelId, message);
         return res.status(200).json({message: "successful!"});

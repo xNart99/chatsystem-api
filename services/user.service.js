@@ -4,7 +4,7 @@ const authentication = require('../utils/authentication');
 const createUser = async (user) => {
     try {
         user.password = await authentication.hashPassword(user.password);
-        user.profileImage = 'http://localhost:5000/uploads\\hinh-anh-avatar-de-thuong.jpg';
+        user.profileImage = 'https://res.cloudinary.com/awi-ln/image/upload/v1665074475/hinh-anh-avatar-de-thuong_g59cqn.jpg';
         await new Users(user).save();
         return true;
     }catch (error) {
