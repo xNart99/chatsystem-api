@@ -48,6 +48,14 @@ const removeMemberToGroup = async (groupId, memberUsername) => {
 
     group.members = arrayMember.filter(item => item !== memberUsername);
 
+    if(group.channels.length > 0) {
+        for(let channel of group.channels) {
+            if (channel.accessingUsers.includes(memberUsername)) {
+                channel.accessingUsers = channel.accessingUsers.filter(item => item !== memberUsername);
+            }
+        }
+    }
+
     updateGroupById(group);
 
     return true;
@@ -89,6 +97,7 @@ const createChannel = async (groupId, channel) => {
             $set: ({channels: group.channels})
         }
     );
+    return channel.id;
 }
 
 const addUserToChannel = async (groupId, channelId, username) => {
@@ -175,6 +184,28 @@ const createMessageToChannel = async (groupId, channelId, message) => {
         }
     )
 }
+
+const deleteUserOnGroups = async (memberUsername) => {
+    const groups = await Groups.find();
+    for (let group of groups) {
+
+        let arrayMember = group.members;
+
+        group.members = arrayMember.filter(item => item !== memberUsername);
+
+        if(group.channels.length > 0) {
+            for(let channel of group.channels) {
+                if (channel.accessingUsers.includes(username)) {
+                    channel.accessingUsers = channel.accessingUsers.filter(item => item !== memberUsername);
+                }
+            }
+        }
+
+        updateGroupById(group);
+
+        return true;
+    }
+}
 module.exports = {
     createGroup,
     getAllGroup,
@@ -192,5 +223,6 @@ module.exports = {
     getChannelById,
     deleteChannel,
     getChannelByName,
-    createMessageToChannel
+    createMessageToChannel,
+    deleteUserOnGroups
 }

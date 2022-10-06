@@ -12,6 +12,7 @@ router.post('/add-member', authMiddleware.isAuthenticated, authMiddleware.checkS
 router.post('/remove-member', authMiddleware.isAuthenticated, authMiddleware.checkSupperAdminAndGroupAdmin,groupController.removeMemberToGroup);
 router.get('/', groupController.getAllGroup);
 router.delete('/:groupId',authMiddleware.isAuthenticated, authMiddleware.checkSupperAdminAndGroupAdmin, groupController.deleteGroup);
+router.post('/delete-user', authMiddleware.isAuthenticated, authMiddleware.checkSupperAdminAndGroupAdmin, groupController.deleteUserOnGroups);
 //channel
 router.post('/:groupId/channels',authMiddleware.isAuthenticated, authMiddleware.checkSupperAdminAndGroupAdmin, groupController.createChannel);
 router.post('/:groupId/channels/:channelId/add-member',authMiddleware.isAuthenticated, authMiddleware.checkSupperAdminAndGroupAdmin, groupController.addUserToChannel);
