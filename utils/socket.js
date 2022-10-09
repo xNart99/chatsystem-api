@@ -3,8 +3,9 @@ const io = require('socket.io')(4000);
 let ROOM_METTING = [];
 
 io.on('connection', (socket) => {
-    socket.on('join', function(room) {
-        socket.join(room);
+    socket.on('join', function(data) {
+        socket.leave(data.channelOld);
+        socket.join(data.channelId);
     });
     socket.on('join-room-metting', function(data) {
         console.log('b1');
@@ -27,7 +28,8 @@ io.on('connection', (socket) => {
         }
     });
     socket.on('leave', function(data) {
-        
+        ROOM_METTING = ROOM_METTING.filter(item => item.channelId !== data.channelId);
+        socket.to(data.channelId).emit('user-end-call', {username: data.username});
     })
 });
 
