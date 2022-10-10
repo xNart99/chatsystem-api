@@ -23,6 +23,7 @@ const updateGroupById = async (group) => {
             $set: (group)
         }
     );
+    socketIO.sendUpdateGroupOrChannel();
     return true;
 }
 
@@ -36,6 +37,7 @@ const addMemberToGroup = async (groupId, memberUsername) => {
     group.members = arrayMember;
 
     updateGroupById(group);
+    socketIO.sendUpdateGroupOrChannel();
 
     return true;
 
@@ -57,7 +59,7 @@ const removeMemberToGroup = async (groupId, memberUsername) => {
     }
 
     updateGroupById(group);
-
+    socketIO.sendUpdateGroupOrChannel();
     return true;
 }
 
@@ -72,6 +74,7 @@ const getAllGroup = async () => {
 const deleteGroup = async (groupId) => {
     const group = await Groups.findOne({id: groupId});
     await group.remove();
+    socketIO.sendUpdateGroupOrChannel();
     return true;
 }
 
@@ -97,6 +100,7 @@ const createChannel = async (groupId, channel) => {
             $set: ({channels: group.channels})
         }
     );
+    socketIO.sendUpdateGroupOrChannel();
     return channel.id;
 }
 
@@ -116,6 +120,7 @@ const addUserToChannel = async (groupId, channelId, username) => {
             $set: (group)
         }
     );
+    socketIO.sendUpdateGroupOrChannel();
     return true;
 }
 
@@ -136,6 +141,7 @@ const removeUserFormChannel= async (groupId, channelId, username) => {
             $set: (group)
         }
     );
+    socketIO.sendUpdateGroupOrChannel();
     return true;
 }
 
@@ -165,7 +171,8 @@ const deleteChannel = async (groupId, channelId) => {
         {
             $set: ({channels: newChannels})
         }
-    )
+    );
+    socketIO.sendUpdateGroupOrChannel();
 }
 
 const createMessageToChannel = async (groupId, channelId, message) => {
@@ -202,7 +209,7 @@ const deleteUserOnGroups = async (memberUsername) => {
         }
 
         updateGroupById(group);
-
+        socketIO.sendUpdateGroupOrChannel();
         return true;
     }
 }

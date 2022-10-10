@@ -36,13 +36,12 @@ io.on('connection', (socket) => {
 const sendMessage = (channelId, data) => {
     io.to(channelId).emit('send-message', data);
 }
-const sendNotification = (data) => {
-    io.broadcast.to(data.channelId).emit('notification-call-video', {channelId: channelId, channelName: data.channelName});
-}
-// const notificationCallVideo = (channelId) => {
 
-// }
+const  sendUpdateGroupOrChannel = () => {
+    io.emit("add-member-new-group-channel");
+}
 
 module.exports = {
-    sendMessage
+    sendMessage,
+    sendUpdateGroupOrChannel
 }
