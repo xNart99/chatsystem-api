@@ -30,6 +30,13 @@ io.on('connection', (socket) => {
     socket.on('leave', function(data) {
         ROOM_METTING = ROOM_METTING.filter(item => item.channelId !== data.channelId);
         socket.to(data.channelId).emit('user-end-call', {username: data.username});
+    });
+    socket.on("add-user", function(username) {
+        socket.to(socket.id).emit("add-user-to-group-channel", {username});
+    });
+    socket.on("remove-user", function(username){
+        console.log(username);
+        socket.to(socket.id).emit("remove-user-to-group-channel", {username});
     })
 });
 
