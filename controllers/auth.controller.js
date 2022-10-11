@@ -9,8 +9,14 @@ const registerUser = async (req, res) => {
         if (userCheck) {
             return res.status(400).json({message: "username or email exists!"});
         }
-        await userService.createUser(user);
-        return res.status(200).json({message: "successful!"});
+        const newUser = await userService.createUser(user);
+        const data = {
+            username: newUser.username,
+            email: newUser.email,
+            profileImage: newUser.profileImage,
+            role: newUser.role
+        }
+        return res.status(200).json(data);
     }catch(error) {
         console.log(error);
         return res.status(500).json({message: "Internal server error!"});

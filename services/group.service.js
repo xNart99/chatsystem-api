@@ -4,6 +4,7 @@ const socketIO = require('../utils/socket');
 const createGroup = async (group) => {
     group.id = uuidv4();
     const newGroup = await new Groups(group).save();
+    socketIO.sendUpdateGroupOrChannel();
     return newGroup;
 }
 

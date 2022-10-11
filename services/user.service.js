@@ -5,11 +5,11 @@ const createUser = async (user) => {
     try {
         user.password = await authentication.hashPassword(user.password);
         user.profileImage = 'https://res.cloudinary.com/awi-ln/image/upload/v1665074475/hinh-anh-avatar-de-thuong_g59cqn.jpg';
-        await new Users(user).save();
-        return true;
+        const newUser = await new Users(user).save();
+        return newUser;
     }catch (error) {
         console.log(error);
-        return false;
+        return null;
     }
 }
 

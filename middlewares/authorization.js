@@ -30,7 +30,7 @@ const checkSupperAdmin = async (req, res, next) => {
 const checkSupperAdminAndGroupAdmin = async (req, res, next) => {
     try {
         const user = req.user;
-        if (user.role !== 'super' && user.role !== 'groupadmin') {
+        if (user.role !== 'super' && user.role !== 'groupadmin' && user.role !== 'groupassis') {
             return res.status(403).json({message: 'not have access'});
         }
         return next();
