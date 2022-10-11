@@ -25,11 +25,6 @@ const getAllUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const user = req.body;
-        const userCheck = await userService.getUserByUsername(user.username);
-
-        if (!userCheck) {
-            return res.status(400).json({message: "username or email not exists!"});
-        }
 
         if (req.file) {
             user.profileImage = 'http://localhost:5000/'+ req.file.path;
